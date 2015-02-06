@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bpmn="http://java.sun.com/jsf/composite/bpmn">
+
+	<f:view locale="de">
+		<h:head>
+  				<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  				<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  				
+  				<h:outputStylesheet library="webjars" name="bootstrap/3.3.2/css/bootstrap.min.css" />
+  				<h:outputStylesheet library="webjars" name="bpmn-js/0.8.0-0/assets/diagram-js.css" />
+		</h:head>
+		<h:body>		
+			<f:metadata>
+				<f:viewParam name="taskId" />
+				<f:viewParam name="engine" />
+			</f:metadata>
+
+			<bpmn:diagram 
+					taskId="#{taskId}" 
+					engine="#{engine}" 
+					restenginePath="http://#{facesContext.externalContext.requestServerName}:8080/engine-rest" />
+			
+			<div class="container right">
+				<h3>
+					So könnte man das jetzt benutzen:
+					<small><a href="http://localhost:8080/jsf.components.example/index.xhtml?engine=default&amp;taskId=c79ab580-ae27-11e4-bc8b-8863dfadd6ed">ein Beispiel aus der Invoice Bsp camunda Anwendung</a></small>
+				</h3>
+				
+				<h3>How to use it:</h3>
+				<code>
+					working example for camundas invoices samples which comes out of the box:<br/>
+					&lt;bpmn:diagram taskId="a_task_id" engine="a_process_engine" restenginePath="url_to_camundas_restengine" /&gt;
+					<br/><br/>
+					Parameter:<br/>
+						- engine: name of the engine the process is deployed on, if unsure use 'default'
+						<br/>
+						- taskId: taskId of the process you want to display
+						<br/>
+						- restenginePath: path to camundas rest-engine application used to get data from
+				</code>
+				<br/><br/>
+				<h:form styleClass="form-horizontal">
+					<div class="form-group">
+   						<label for="taskId" class="col-sm-2 control-label">taskId</label>
+   						<div class="col-sm-10">
+							<h:inputText id="taskId" value="#{taskId}" styleClass="form-control"/>
+						</div>
+					</div>
+					<div class="form-group">
+    					<label for="engine" class="col-sm-2 control-label">Engine (z.B. default)</label>
+    					<div class="col-sm-10">	
+							<h:inputText id="engine" value="#{engine}" styleClass="form-control"/>
+						</div>
+					</div>
+				</h:form>
+			</div>
+					
+			<style type="text/css">
+				html, body, #diagramCanvas {
+			      height: 80%;
+			      width: 100%;
+			      padding: 5px;
+			    }
+				.highlight > .djs-visual > :nth-child(1) {
+					stroke: #5cb85c !important;
+					stroke-width: 5px !important; 
+					fill: #dff0d8 !important;
+				}
+			</style>
+		
+		</h:body>
+	</f:view>
+</html>	
